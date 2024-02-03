@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
     <UserSecretsId>aspnet-PropiedadesBlazor-1ba06f72-7c0e-4377-bafb-c0f815a0b716</UserSecretsId>
   </PropertyGroup>
 
@@ -21,4 +22,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\imagenes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\imagenes\" />
+  </ItemGroup>
 </Project>
