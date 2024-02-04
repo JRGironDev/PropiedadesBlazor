@@ -11,6 +11,9 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
+    <None Remove="Modelos\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
   </ItemGroup>
 
@@ -27,5 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\imagenes\" />
+    <Folder Include="Modelos\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PropiedadesBlazor.Modelos;
 
 namespace PropiedadesBlazor.Data;
 
@@ -9,5 +10,8 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
+
+    //Agregar modelos que corresponden a cada tabla de la base de datos
+    public DbSet<Categoria> Categoria { get; set; }
 }
 
