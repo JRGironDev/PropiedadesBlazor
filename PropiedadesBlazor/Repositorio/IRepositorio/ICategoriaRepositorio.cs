@@ -9,9 +9,9 @@ namespace PropiedadesBlazor.Repositorio.IRepositorio
 
         public Task<CategoriaDTO> GetCategoria(int categoriaId);
 
-        public Task<CategoriaDTO> CreatCategpria(CategoriaDTO categoriaDTO);
+        public Task<CategoriaDTO> CrearCategoria(CategoriaDTO categoriaDTO);
 
-        public Task<CategoriaDTO> ActualizarCategoria(int cateogiraId, CategoriaDTO categoriaDTO);
+        public Task<CategoriaDTO> ActualizarCategoria(int categoriaId, CategoriaDTO categoriaDTO);
 
         public Task<CategoriaDTO> NombreCategoriaExiste(string nombre);
 
