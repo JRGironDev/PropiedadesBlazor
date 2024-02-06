@@ -12,6 +12,10 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <None Remove="Modelos\" />
+    <None Remove="Modelos\DTO\" />
+    <None Remove="Mapper\" />
+    <None Remove="Repositorio\" />
+    <None Remove="Repositorio\IRepositorio\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
@@ -23,6 +27,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15" />
+    <PackageReference Include="AutoMapper" Version="13.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,5 +37,9 @@
   <ItemGroup>
     <Folder Include="wwwroot\imagenes\" />
     <Folder Include="Modelos\" />
+    <Folder Include="Modelos\DTO\" />
+    <Folder Include="Mapper\" />
+    <Folder Include="Repositorio\" />
+    <Folder Include="Repositorio\IRepositorio\" />
   </ItemGroup>
 </Project>
