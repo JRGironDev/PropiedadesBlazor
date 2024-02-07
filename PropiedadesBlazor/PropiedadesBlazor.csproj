@@ -16,6 +16,7 @@
     <None Remove="Mapper\" />
     <None Remove="Repositorio\" />
     <None Remove="Repositorio\IRepositorio\" />
+    <None Remove="Pages\Categorias\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
@@ -27,8 +28,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15" />
-    <PackageReference Include="AutoMapper" Version="13.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,5 +42,6 @@
     <Folder Include="Mapper\" />
     <Folder Include="Repositorio\" />
     <Folder Include="Repositorio\IRepositorio\" />
+    <Folder Include="Pages\Categorias\" />
   </ItemGroup>
 </Project>

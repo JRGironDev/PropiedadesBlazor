@@ -46,9 +46,15 @@ namespace PropiedadesBlazor.Repositorio
             }
         }
 
-        public Task<CategoriaDTO> BorrarCategoriaExiste(int categoriaId)
+        public async Task<int> BorrarCategoria(int categoriaId)
         {
-            throw new NotImplementedException();
+            var categoria = await _bd.Categoria.FindAsync(categoriaId);
+            if (categoria != null)
+            {
+                _bd.Categoria.Remove(categoria);
+                return await _bd.SaveChangesAsync();
+            }
+            return 0;
         }
 
         public async Task<CategoriaDTO> CrearCategoria(CategoriaDTO categoriaDTO)
