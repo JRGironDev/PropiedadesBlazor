@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PropiedadesBlazor.Data;
 using PropiedadesBlazor.Modelos;
 using PropiedadesBlazor.Modelos.DTO;
@@ -60,19 +61,43 @@ namespace PropiedadesBlazor.Repositorio
 
         }
 
-        public Task<IEnumerable<CategoriaDTO>> GetAllCategorias()
+        public async Task<IEnumerable<CategoriaDTO>> GetAllCategorias()
         {
-            throw new NotImplementedException();
+            try
+            {
+                IEnumerable<CategoriaDTO> categoriaDTO = _mapper.Map<IEnumerable<Categoria>, IEnumerable<CategoriaDTO>>(_bd.Categoria);
+                return categoriaDTO;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
-        public Task<CategoriaDTO> GetCategoria(int categoriaId)
+        public async Task<CategoriaDTO> GetCategoria(int categoriaId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                CategoriaDTO categoriaDTO = _mapper.Map<Categoria, CategoriaDTO>(await _bd.Categoria.FirstOrDefaultAsync(c => c.Id == categoriaId));
+                return categoriaDTO;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
-        public Task<CategoriaDTO> NombreCategoriaExiste(string nombre)
+        public async Task<CategoriaDTO> NombreCategoriaExiste(string nombre)
         {
-            throw new NotImplementedException();
+            try
+            {
+                CategoriaDTO categoriaDTO = _mapper.Map<Categoria, CategoriaDTO>(await _bd.Categoria.FirstOrDefaultAsync(c => c.NombreCategoria.ToLower() == nombre.ToLower()));
+                return categoriaDTO;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
