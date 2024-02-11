@@ -13,7 +13,13 @@
     <div class="col-4">
         <button class="btn btn-success" @onclick="DemoSuccess">Demo Toastr Success</button>
         <button class="btn btn-danger" @onclick="DemoError">Demo Toastr Error</button>
+    </div>
+</div>
 
+<div class="row mt-4">
+    <div class="col-4">
+        <button class="btn btn-success" @onclick="DemoSuccessSwal">Demo Toastr Success Swal</button>
+        <button class="btn btn-danger" @onclick="DemoErrorSwal">Demo Toastr Error Swal</button>
     </div>
 </div>
 
@@ -51,6 +57,19 @@
         ConfirmarResultado = false;
         //await JsRuntime.InvokeVoidAsync("ShowToastr", "error", "Error completando tarea!");
         await JsRuntime.ToastrError("Error en la tarea!");
+    }
+
+    //Swal
+    private async Task DemoSuccessSwal()
+    {
+        ConfirmarResultado = true;
+        await JsRuntime.InvokeVoidAsync("ShowSwal", "success", "Tarea Completada!");
+    }
+
+    private async Task DemoErrorSwal()
+    {
+        ConfirmarResultado = false;
+        await JsRuntime.InvokeVoidAsync("ShowSwal", "error", "Error completando tarea!");
     }
 }
 

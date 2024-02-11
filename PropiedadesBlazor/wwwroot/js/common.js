@@ -7,3 +7,20 @@ window.ShowToastr = (type, message) => {
         toastr.error(message, "Operación Fallida", { timeOut: 10000 });
     }
 }
+
+window.ShowSwal = (type, message) => {
+    if (type == "success") {
+        swal.fire(
+            'Notificación Exitosa',
+            message,
+            'success'
+        );
+    }
+    if (type == "error") {
+        swal.fire(
+            'Notificación Erronea',
+            message,
+            'error'
+        );
+    }
+}
