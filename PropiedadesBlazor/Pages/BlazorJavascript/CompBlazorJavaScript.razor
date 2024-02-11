@@ -42,13 +42,15 @@
     private async Task DemoSuccess()
     {
         ConfirmarResultado = true;
-        await JsRuntime.InvokeVoidAsync("ShowToastr", "success", "Tarea Completada!");
+        //await JsRuntime.InvokeVoidAsync("ShowToastr", "success", "Tarea Completada!");
+        await JsRuntime.ToastrSuccess("Tarea completada!");
     }
 
     private async Task DemoError()
     {
         ConfirmarResultado = false;
-        await JsRuntime.InvokeVoidAsync("ShowToastr", "error", "Error completando tarea!");
+        //await JsRuntime.InvokeVoidAsync("ShowToastr", "error", "Error completando tarea!");
+        await JsRuntime.ToastrError("Error en la tarea!");
     }
 }
 

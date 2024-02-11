@@ -18,6 +18,7 @@
     <None Remove="Repositorio\IRepositorio\" />
     <None Remove="Pages\Categorias\" />
     <None Remove="Pages\BlazorJavascript\" />
+    <None Remove="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
@@ -47,5 +48,6 @@
     <Folder Include="Pages\Categorias\" />
     <Folder Include="Pages\BlazorJavascript\" />
     <Folder Include="wwwroot\js\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>
