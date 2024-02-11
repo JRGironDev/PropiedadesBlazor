@@ -9,6 +9,14 @@
     </div>
 </div>
 
+<div class="row mt-4">
+    <div class="col-4">
+        <button class="btn btn-success" @onclick="DemoSuccess">Demo Toastr Success</button>
+        <button class="btn btn-danger" @onclick="DemoError">Demo Toastr Error</button>
+
+    </div>
+</div>
+
 <div class="row">
     @if (ConfirmarResultado)
     {
@@ -28,6 +36,19 @@
     private async Task DemoConfirmacion(string mensaje)
     {
         ConfirmarResultado = await JsRuntime.InvokeAsync<bool>("confirm", mensaje);
+    }
+
+    //Toastr
+    private async Task DemoSuccess()
+    {
+        ConfirmarResultado = true;
+        await JsRuntime.InvokeVoidAsync("ShowToastr", "success", "Tarea Completada!");
+    }
+
+    private async Task DemoError()
+    {
+        ConfirmarResultado = false;
+        await JsRuntime.InvokeVoidAsync("ShowToastr", "error", "Error completando tarea!");
     }
 }
 

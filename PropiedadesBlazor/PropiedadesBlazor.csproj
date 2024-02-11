@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\imagenes\" />
+    <Content Remove="wwwroot\js\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\imagenes\" />
@@ -45,5 +46,6 @@
     <Folder Include="Repositorio\IRepositorio\" />
     <Folder Include="Pages\Categorias\" />
     <Folder Include="Pages\BlazorJavascript\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 </Project>
