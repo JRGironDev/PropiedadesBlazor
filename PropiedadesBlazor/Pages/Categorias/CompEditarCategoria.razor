@@ -3,6 +3,7 @@
 @using Repositorio.IRepositorio
 @inject ICategoriaRepositorio CategoriaRepositorio
 @inject NavigationManager navigationManager
+@inject IJSRuntime JsRuntime
 
 <h1 class="text-center">Editar Categoría</h1>
 
@@ -86,11 +87,13 @@
             var nombreCategoria = await CategoriaRepositorio.NombreCategoriaExiste(categoriaDTO.NombreCategoria);
             if (nombreCategoria != null)
             {
+                await JsRuntime.ToastrError("El nombre de la categoria ya existe");
                 return;
             }
 
             // Si entra aquí está bien entonces hay que actualizarla
             var editarCategoria = await CategoriaRepositorio.ActualizarCategoria(categoriaDTO.Id, categoriaDTO);
+            await JsRuntime.ToastrSuccess("Categoria creada correctamente!");
             navigationManager.NavigateTo("categorias");
         }
         catch (Exception ex)

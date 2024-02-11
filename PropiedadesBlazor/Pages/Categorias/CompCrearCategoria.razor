@@ -2,7 +2,8 @@
 @using Modelos.DTO
 @using Repositorio.IRepositorio
 @inject ICategoriaRepositorio CategoriaRepositorio
-@inject NavigationManager navigationManager 
+@inject NavigationManager navigationManager
+@inject IJSRuntime JsRuntime
 
 <h1 class="text-center">Crear Categoría</h1>
 
@@ -70,12 +71,16 @@
         var nombreCategoria = await CategoriaRepositorio.NombreCategoriaExiste(categoriaDTO.NombreCategoria);
         if (nombreCategoria != null)
         {
+            //Categoria duplicada error
+            await JsRuntime.ToastrError("El nombre de la categoria ya existe");
             return;
         }
 
         //Si entra aqui, entonces no existe y hay que crearla
         var crearCategoria = await CategoriaRepositorio.CrearCategoria(categoriaDTO);
-        navigationManager.NavigateTo("categorias");                                                                                                                                                                 
+        await JsRuntime.ToastrSuccess("Categoria creada correctamente!");
+        navigationManager.NavigateTo("categorias");
+        
     }
 }
 
