@@ -1,0 +1,151 @@
+﻿@page "/crear-propiedad"
+@using Modelos.DTO
+@using Repositorio.IRepositorio
+@inject IPropiedadRepositorio PropiedadRepositorio
+@inject NavigationManager navigationManager
+@inject IJSRuntime JsRuntime
+
+<h1 class="text-center">Crear Propiedad</h1>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-7">
+                <h4 class="text-dark">Nueva Propiedad</h4>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <EditForm Model="propiedadDTO" OnValidSubmit="@( () => ManejadorOnCrearPropiedad())">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <ValidationSummary></ValidationSummary>
+            <div class="container">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <label>Nombre: </label>
+                        </div>
+                        <div class="col-6">
+                            <InputText @bind-Value="propiedadDTO.Nombre" class="form-control" placeholder="Ingresa el nombre"></InputText>
+                            <ValidationMessage For="() => propiedadDTO.Nombre"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <label>Descripción: </label>
+                        </div>
+                        <div class="col-6">
+                            <InputText @bind-Value="propiedadDTO.Descripcion" class="form-control" placeholder="Ingresa la descripción"></InputText>
+                            <ValidationMessage For="() => propiedadDTO.Descripcion"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <label>Área: </label>
+                        </div>
+                        <div class="col-6">
+                            <InputNumber @bind-Value="propiedadDTO.Area" class="form-control" placeholder="Ingresa el área"></InputNumber>
+                            <ValidationMessage For="() => propiedadDTO.Area"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <label>Habitaciones: </label>
+                        </div>
+                        <div class="col-6">
+                            <InputNumber @bind-Value="propiedadDTO.Habitaciones" class="form-control" placeholder="Ingresa la cantdad de habitaciones"></InputNumber>
+                            <ValidationMessage For="() => propiedadDTO.Habitaciones"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <label>Baños: </label>
+                        </div>
+                        <div class="col-6">
+                            <InputNumber @bind-Value="propiedadDTO.Banios" class="form-control" placeholder="Ingresa la cantdad de baños"></InputNumber>
+                            <ValidationMessage For="() => propiedadDTO.Banios"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <label>Parqueos: </label>
+                        </div>
+                        <div class="col-6">
+                            <InputNumber @bind-Value="propiedadDTO.Parqueadero" class="form-control" placeholder="Ingresa la cantdad de parqueos"></InputNumber>
+                            <ValidationMessage For="() => propiedadDTO.Parqueadero"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <label>Precio: </label>
+                        </div>
+                        <div class="col-6">
+                            <InputNumber @bind-Value="propiedadDTO.Precio" class="form-control" placeholder="Ingresa el precio de la propiedad"></InputNumber>
+                            <ValidationMessage For="() => propiedadDTO.Precio"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <button type="submit" class="btn btn-success"><i class="bi bi-gear-fill"></i>&nbsp; Crear Propiedad</button>
+                        </div>
+                        <div class="col-6">
+                            <NavLink href="propiedades" class="btn btn-secondary"><i class="bi bi-arrow-lef-circle-fill"></i>&nbsp; Volver atrás</NavLink>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private PropiedadDTO propiedadDTO { get; set; } = new PropiedadDTO();
+
+    private async Task ManejadorOnCrearPropiedad()
+    {
+        var nombrePropiedad = await PropiedadRepositorio.NombrePropiedadExiste(propiedadDTO.Nombre);
+        if (nombrePropiedad != null)
+        {
+            //Propiedad duplicada error
+            await JsRuntime.ToastrError("El nombre de la Propiedad ya existe");
+            return;
+        }
+
+        //Si entra aqui, entonces no existe y hay que crearla
+        var crearPropiedad = await PropiedadRepositorio.CrearPropiedad(propiedadDTO);
+        await JsRuntime.ToastrSuccess("Propiedad creada correctamente!");
+        navigationManager.NavigateTo("Propiedades");
+
+    }
+}
+

@@ -13,11 +13,11 @@ namespace PropiedadesBlazor.Modelos.DTO
         [StringLength(30, MinimumLength = 5, ErrorMessage ="El nombre debe estar entre 5 y 30 caracteres")]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "La descripción es obligatorio")]
+        [Required(ErrorMessage = "La descripción es obligatoria")]
         [StringLength(300, MinimumLength = 20, ErrorMessage = "La descripción debe estar entre 20 y 300 caracteres")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "El área es obligatorio")]
+        [Required(ErrorMessage = "El área es obligatoria")]
         [Range(1, 5000, ErrorMessage = "Debes ingresar un númber válido entre 1 y 5,000")]
         public int Area { get; set; }
 
