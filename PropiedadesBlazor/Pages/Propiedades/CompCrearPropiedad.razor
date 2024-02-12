@@ -2,6 +2,7 @@
 @using Modelos.DTO
 @using Repositorio.IRepositorio
 @inject IPropiedadRepositorio PropiedadRepositorio
+@inject ICategoriaRepositorio CategoriaRepositorio
 @inject NavigationManager navigationManager
 @inject IJSRuntime JsRuntime
 
@@ -115,6 +116,37 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-2">
+                            <label>Activo: </label>
+                        </div>
+                        <div class="col-6">
+                            <InputCheckbox @bind-Value="propiedadDTO.Activo"></InputCheckbox>
+                            <ValidationMessage For="() => propiedadDTO.Activo"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <label>Categoría: </label>
+                        </div>
+                        <div class="col-6">
+                            <InputSelect @bind-Value="categoriaSeleccionada.Id" class="form-control">
+                                <option value="">--Selecciona una categoría</option>
+                                @foreach (var categoria in DropDownCategoriaDTO)
+                                    {
+                                        <option value="@categoria.Id">@categoria.NombreCategoria.</option>
+                                    }
+                            </InputSelect>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
                             <button type="submit" class="btn btn-success"><i class="bi bi-gear-fill"></i>&nbsp; Crear Propiedad</button>
                         </div>
                         <div class="col-6">
@@ -130,6 +162,17 @@
 
 @code {
     private PropiedadDTO propiedadDTO { get; set; } = new PropiedadDTO();
+
+    private DropDownCategoriaDTO categoriaSeleccionada = new DropDownCategoriaDTO();
+
+    //Para obtener la lista de categorias en un DropDown o lista <select>
+
+    private IEnumerable<DropDownCategoriaDTO> DropDownCategoriaDTO { get; set; } = new List<DropDownCategoriaDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        DropDownCategoriaDTO = await CategoriaRepositorio.GetDropDownCategorias();
+    }
 
     private async Task ManejadorOnCrearPropiedad()
     {

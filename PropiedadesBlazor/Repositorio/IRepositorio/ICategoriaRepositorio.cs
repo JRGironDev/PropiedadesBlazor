@@ -17,7 +17,7 @@ namespace PropiedadesBlazor.Repositorio.IRepositorio
 
         public Task<CategoriaDTO> NombreCategoriaExiste(string nombre);
 
-        //public Task<IEnumerable<CategoriaDTO>> GetDropDownCategorias();
+        public Task<IEnumerable<DropDownCategoriaDTO>> GetDropDownCategorias();
     }
 }
 
