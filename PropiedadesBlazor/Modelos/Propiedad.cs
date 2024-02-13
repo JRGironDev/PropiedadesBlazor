@@ -42,6 +42,9 @@ namespace PropiedadesBlazor.Modelos
 		[ForeignKey("CategoriaId")]
 
 		public virtual Categoria Categoria { get; set; }
+
+		//Relación con Modelo/Tabla ImagenPropiedad (Donde están las imagenes de la propiedad)
+		public virtual ICollection<ImagenPropiedad> ImagenPropiedad { get; set; }
 	}
 }
 

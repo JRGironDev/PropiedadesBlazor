@@ -15,5 +15,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Categoria> Categoria { get; set; }
 
     public DbSet<Propiedad> Propiedad { get; set; }
-}
 
+    public DbSet<ImagenPropiedad> ImagenPropiedad { get; set; }
+}
