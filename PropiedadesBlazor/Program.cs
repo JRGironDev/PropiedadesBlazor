@@ -27,7 +27,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 //Agregar servicios
 builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
 builder.Services.AddScoped<IPropiedadRepositorio, PropiedadRepositorio>();
-
+builder.Services.AddScoped<IIMagenPropiedadRepositorio, IMagenPropiedadRepositorio>();
 
 var app = builder.Build();
 
