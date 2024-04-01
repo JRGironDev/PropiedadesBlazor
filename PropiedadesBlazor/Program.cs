@@ -8,6 +8,7 @@ using PropiedadesBlazor.Areas.Identity;
 using PropiedadesBlazor.Data;
 using PropiedadesBlazor.Repositorio.IRepositorio;
 using PropiedadesBlazor.Repositorio;
+using PropiedadesBlazor.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
 builder.Services.AddScoped<IPropiedadRepositorio, PropiedadRepositorio>();
 builder.Services.AddScoped<IIMagenPropiedadRepositorio, IMagenPropiedadRepositorio>();
+builder.Services.AddScoped<ISubidaArchivos, SubidaArchivos>();
+
 
 var app = builder.Build();
 

@@ -39,6 +39,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\imagenes\" />
     <Content Remove="wwwroot\js\" />
+    <Content Remove="wwwroot\ImagenesPropiedades\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\imagenes\" />
@@ -53,5 +54,6 @@
     <Folder Include="Helpers\" />
     <Folder Include="Pages\Propiedades\" />
     <Folder Include="Servicios\" />
+    <Folder Include="wwwroot\ImagenesPropiedades\" />
   </ItemGroup>
 </Project>
