@@ -5,7 +5,6 @@ using PropiedadesBlazor.Data;
 using PropiedadesBlazor.Modelos;
 using PropiedadesBlazor.Modelos.DTO;
 using PropiedadesBlazor.Repositorio.IRepositorio;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PropiedadesBlazor.Repositorio
 {
@@ -20,29 +19,42 @@ namespace PropiedadesBlazor.Repositorio
             _mapper = mapper;
         }
 
-        public Task<int> BorrarPropiedadImagenPorIdImagen(int imagenDTO)
+        public async Task<int> BorrarPropiedadImagenPorIdImagen(int imagenId)
         {
-            throw new NotImplementedException();
+            var imagen = await _bd.ImagenPropiedad.FindAsync(imagenId);
+            _bd.ImagenPropiedad.Remove(imagen);
+            return await _bd.SaveChangesAsync();
         }
 
-        public Task<int> BorrarPropiedadImagenPorIdPropiedad(int propiedadId)
+        public async Task<int> BorrarPropiedadImagenPorIdPropiedad(int propiedadId)
         {
-            throw new NotImplementedException();
+            var listaImagenes = await _bd.ImagenPropiedad.Where(x => x.Id == propiedadId).ToListAsync();
+            _bd.ImagenPropiedad.RemoveRange(listaImagenes);
+            return await _bd.SaveChangesAsync();
         }
 
-        public Task<int> BorrarPropiedadImagenPorUrlImagen(string imageUrl)
+        public async Task<int> BorrarPropiedadImagenPorUrlImagen(string imageUrl)
         {
-            throw new NotImplementedException();
+            var todasImagenes = await _bd.ImagenPropiedad.FirstOrDefaultAsync(x => x.UrlImagenPropiedad.ToLower() == imageUrl.ToLower());
+            if (todasImagenes == null)
+            {
+                return 0;
+            }
+            _bd.ImagenPropiedad.Remove(todasImagenes);
+            return await _bd.SaveChangesAsync();
         }
 
-        public Task<int> CrearPropiedadImagen(ImagenPropiedadDTO imagenDTO)
+        public async Task<int> CrearPropiedadImagen(ImagenPropiedadDTO imagenDTO)
         {
-            throw new NotImplementedException();
+            var imagen = _mapper.Map<ImagenPropiedadDTO, ImagenPropiedad>(imagenDTO);
+            await _bd.ImagenPropiedad.AddAsync(imagen);
+            return await _bd.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<ImagenPropiedadDTO>> GetImagenPropiedad(int propiedadId)
+        public async Task<IEnumerable<ImagenPropiedadDTO>> GetImagenPropiedad(int propiedadId)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<ImagenPropiedad>, IEnumerable<ImagenPropiedadDTO>>(
+                await _bd.ImagenPropiedad.Where(x => x.Id == propiedadId).ToListAsync());
         }
     }
 }

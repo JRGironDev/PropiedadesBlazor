@@ -67,4 +67,3 @@ namespace PropiedadesBlazor.Servicios
         }
     }
 }
-
