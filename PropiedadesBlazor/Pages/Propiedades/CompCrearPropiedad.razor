@@ -1,8 +1,10 @@
 ﻿@page "/crear-propiedad"
 @using Modelos.DTO
 @using Repositorio.IRepositorio
+@using Servicios
 @inject IPropiedadRepositorio PropiedadRepositorio
 @inject ICategoriaRepositorio CategoriaRepositorio
+@inject ISubidaArchivos SubidaArchivos
 @inject NavigationManager navigationManager
 @inject IJSRuntime JsRuntime
 
@@ -172,33 +174,87 @@
 </div>
 
 @code {
-    private PropiedadDTO propiedadDTO { get; set; } = new PropiedadDTO();
+        private PropiedadDTO propiedadDTO { get; set; } = new PropiedadDTO();
 
-    private DropDownCategoriaDTO categoriaSeleccionada = new DropDownCategoriaDTO();
+        private DropDownCategoriaDTO categoriaSeleccionada = new DropDownCategoriaDTO();
 
-    //Para obtener la lista de categorias en un DropDown o lista <select>
+        private bool estaIniciadoProcesoSubidaImagen { get; set; } = false;
 
-    private IEnumerable<DropDownCategoriaDTO> DropDownCategoriaDTO { get; set; } = new List<DropDownCategoriaDTO>();
+        //Para obtener la lista de categorias en un DropDown o lista <select>
 
-    protected override async Task OnInitializedAsync()
-    {
-        DropDownCategoriaDTO = await CategoriaRepositorio.GetDropDownCategorias();
-    }
+        private IEnumerable<DropDownCategoriaDTO> DropDownCategoriaDTO { get; set; } = new List<DropDownCategoriaDTO>();
 
-    private async Task ManejadorOnCrearPropiedad()
-    {
-        var nombrePropiedad = await PropiedadRepositorio.NombrePropiedadExiste(propiedadDTO.Nombre);
-        if (nombrePropiedad != null)
+        protected override async Task OnInitializedAsync()
         {
-            //Propiedad duplicada error
-            await JsRuntime.ToastrError("El nombre de la Propiedad ya existe");
-            return;
+            DropDownCategoriaDTO = await CategoriaRepositorio.GetDropDownCategorias();
         }
 
-        //Si entra aqui, entonces no existe y hay que crearla
-        var crearPropiedad = await PropiedadRepositorio.CrearPropiedad(propiedadDTO);
-        await JsRuntime.ToastrSuccess("Propiedad creada correctamente!");
-        navigationManager.NavigateTo("Propiedades");
-    }
+        private async Task ManejadorOnCrearPropiedad()
+        {
+            var nombrePropiedad = await PropiedadRepositorio.NombrePropiedadExiste(propiedadDTO.Nombre);
+            if (nombrePropiedad != null)
+            {
+                //Propiedad duplicada error
+                await JsRuntime.ToastrError("El nombre de la Propiedad ya existe");
+                return;
+            }
+
+            //Si entra aqui, entonces no existe y hay que crearla
+            var crearPropiedad = await PropiedadRepositorio.CrearPropiedad(propiedadDTO);
+            await JsRuntime.ToastrSuccess("Propiedad creada correctamente!");
+            navigationManager.NavigateTo("Propiedades");
+        }
+
+        private async Task ManejadorOnSubidaArchivo(InputFileChangeEventArgs e)
+        {
+            estaIniciadoProcesoSubidaImagen = true;
+            try
+            {
+                var imagenes = new List<string>();
+                if (e.GetMultipleFiles().Count() > 0)
+                {
+                    foreach (var file in e.GetMultipleFiles())
+                    {
+                        System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
+                        if (fileInfo.Extension.ToLower() == ".jpg"
+                        || fileInfo.Extension.ToLower() == ".png"
+                        || fileInfo.Extension.ToLower() == ".jpeg")
+                        {
+                            var upLoadedImagenPatch = await SubidaArchivos.SubirArchivo(file);
+                            imagenes.Add(upLoadedImagenPatch);
+                        }
+                        else
+                        {
+                            await JsRuntime.ToastrError("Por favor seleccione unicamente .jpg/.jpeg/.png");
+                            return;
+                        }
+                    }
+
+                    if (imagenes.Any())
+                    {
+                        if (propiedadDTO.UrlImagenes != null && propiedadDTO.UrlImagenes.Any())
+                        {
+                            propiedadDTO.UrlImagenes.AddRange(imagenes);
+                        }
+                        else
+                        {
+                            propiedadDTO.UrlImagenes = new List<string>();
+                            propiedadDTO.UrlImagenes.AddRange(imagenes);
+                        }
+                    }
+                    else
+                    {
+                        await JsRuntime.ToastrError("Fallo en la subida de imágenes");
+                        return;
+                    }
+                }
+
+                estaIniciadoProcesoSubidaImagen = false;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 }
 
