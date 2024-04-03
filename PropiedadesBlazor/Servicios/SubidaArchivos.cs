@@ -20,7 +20,7 @@ namespace PropiedadesBlazor.Servicios
         {
             try
             {
-                var path = $"{_webHostEnvironment.WebRootPath}\\ImagenesPropiedades\\{nombreArchivo}";
+                var path = $"{_webHostEnvironment.WebRootPath}\\{nombreArchivo}";
                 if (File.Exists(path))
                 {
                     File.Delete(path);
