@@ -67,9 +67,23 @@ namespace PropiedadesBlazor.Repositorio
 
         public async Task<IEnumerable<PropiedadDTO>> GetAllPropiedades()
         {
+            //Versión 1
+            //try
+            //{
+            //    IEnumerable<PropiedadDTO> propiedadDTO = _mapper.Map<IEnumerable<Propiedad>, IEnumerable<PropiedadDTO>>(_bd.Propiedad);
+            //    return propiedadDTO;
+            //}
+            //catch (Exception ex)
+            //{
+            //    return null;
+            //}
+
+            //Versión 2 que incluye las imagenes
             try
             {
-                IEnumerable<PropiedadDTO> propiedadDTO = _mapper.Map<IEnumerable<Propiedad>, IEnumerable<PropiedadDTO>>(_bd.Propiedad);
+                IEnumerable<PropiedadDTO> propiedadDTO =
+                    _mapper.Map<IEnumerable<Propiedad>, IEnumerable<PropiedadDTO>>
+                    (_bd.Propiedad.Include(x => x.ImagenPropiedad));
                 return propiedadDTO;
             }
             catch (Exception ex)
