@@ -50,6 +50,8 @@ namespace PropiedadesBlazor.Repositorio
             var propiedad = await _bd.Propiedad.FindAsync(propiedadId);
             if (propiedad != null)
             {
+                var todasImagenes = await _bd.ImagenPropiedad.Where(x => x.Id == propiedadId).ToListAsync();
+                _bd.ImagenPropiedad.RemoveRange(todasImagenes);
                 _bd.Propiedad.Remove(propiedad);
                 return await _bd.SaveChangesAsync();
             }

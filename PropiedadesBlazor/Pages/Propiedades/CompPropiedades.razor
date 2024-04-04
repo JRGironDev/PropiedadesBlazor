@@ -1,7 +1,10 @@
 ﻿@page "/propiedades"
 @using Modelos.DTO
 @using Repositorio.IRepositorio
+@using PropiedadesBlazor.Servicios
 @inject IPropiedadRepositorio PropiedadRepositorio
+@inject ISubidaArchivos SubidaArchivos
+@inject NavigationManager navigationManager
 @inject IJSRuntime JsRuntime
 
 <h1 class="text-center">Propiedades</h1>
@@ -59,7 +62,7 @@
                 else
                 {
                     <tr>
-                        <td colspan="10">No hay registros</td>
+                        <td colspan="11">No hay registros</td>
                     </tr>
                 }
             </tbody>
@@ -67,7 +70,7 @@
     </div>
 </div>
 
-<ConfirmacionBorrado CambioConfirmacion="Click_Confirmar_Borrado"></ConfirmacionBorrado>
+<ConfirmacionBorrado ProcesandoComponentePadre="estaProcesando" CambioConfirmacion="Click_Confirmar_Borrado"></ConfirmacionBorrado>
 
 @code {
     private IEnumerable<PropiedadDTO> propiedadDTO { get; set; } = new List<PropiedadDTO>();
@@ -91,6 +94,12 @@
         estaProcesando = true;
         if (confirmado && BorrarIdPropiedad != null)
         {
+            PropiedadDTO propiedad = await PropiedadRepositorio.GetPropiedad(BorrarIdPropiedad.Value);
+            foreach (var imagen in propiedad.ImagenPropiedad)
+            {
+                var nombreImagen = imagen.UrlImagenPropiedad.Replace($"{navigationManager.BaseUri}ImagenesPropiedades/", "");
+                SubidaArchivos.BorrarArchivo(nombreImagen);
+            }
             await PropiedadRepositorio.BorrarPropiedad(BorrarIdPropiedad.Value);
             await JsRuntime.ToastrSuccess("Propeidad Borrada Correctamente");
             propiedadDTO = await PropiedadRepositorio.GetAllPropiedades();
