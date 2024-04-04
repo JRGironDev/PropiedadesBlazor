@@ -67,7 +67,7 @@
     </div>
 </div>
 
-<ConfirmacionBorrado></ConfirmacionBorrado>
+<ConfirmacionBorrado CambioConfirmacion="Click_Confirmar_Borrado"></ConfirmacionBorrado>
 
 @code {
     private IEnumerable<PropiedadDTO> propiedadDTO { get; set; } = new List<PropiedadDTO>();
@@ -81,6 +81,7 @@
 
     private async Task ManejadorOnBorrar(int propiedadId)
     {
+        BorrarIdPropiedad = propiedadId;
         await JsRuntime.InvokeVoidAsync("MostrarModalConfirmacionBorrado");
 
     }
