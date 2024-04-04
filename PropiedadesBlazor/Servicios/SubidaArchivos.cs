@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Components.Forms;
 
 namespace PropiedadesBlazor.Servicios
 {
@@ -16,7 +14,7 @@ namespace PropiedadesBlazor.Servicios
             _configuration = configuration;
         }
 
-        bool ISubidaArchivos.BorrarArchivo(string nombreArchivo)
+        public bool BorrarArchivo(string nombreArchivo)
         {
             try
             {
@@ -34,7 +32,7 @@ namespace PropiedadesBlazor.Servicios
             }
         }
 
-        async Task<string> ISubidaArchivos.SubirArchivo(IBrowserFile archivo)
+        public async Task<string> SubirArchivo(IBrowserFile archivo)
         {
             try
             {
