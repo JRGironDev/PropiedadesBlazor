@@ -83,7 +83,7 @@ namespace PropiedadesBlazor.Repositorio
             {
                 IEnumerable<PropiedadDTO> propiedadDTO =
                     _mapper.Map<IEnumerable<Propiedad>, IEnumerable<PropiedadDTO>>
-                    (_bd.Propiedad.Include(x => x.ImagenPropiedad));
+                    (_bd.Propiedad.Include(x => x.ImagenPropiedad).Include(c => c.Categoria));
                 return propiedadDTO;
             }
             catch (Exception ex)

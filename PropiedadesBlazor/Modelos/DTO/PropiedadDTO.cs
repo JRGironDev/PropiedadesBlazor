@@ -42,6 +42,8 @@ namespace PropiedadesBlazor.Modelos.DTO
         //Relación con modelo/tabla categoria
         public int CategoriaId { get; set; }
 
+        public virtual Categoria Categoria { get; set; }
+
         public virtual ICollection<ImagenPropiedad> ImagenPropiedad { get; set; }
 
         public List<string> UrlImagenes { get; set; }

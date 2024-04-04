@@ -29,6 +29,7 @@
                     <th>Parqueo</th>
                     <th>Precio</th>
                     <th>Activo</th>
+                    <th>Categoría</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -46,6 +47,7 @@
                             <td>@propiedad.Parqueadero</td>
                             <td>@propiedad.Precio</td>
                             <td>@propiedad.Activo</td>
+                            <td>@propiedad.Categoria.NombreCategoria</td>
                             <td>
                                 <NavLink href="@($"editar-propiedad/{propiedad.Id}")" class="btn btn-success"><i class="bi bi-gear-fill"></i>&nbsp; Editar</NavLink>
                                 <button class="btn btn-danger" @onclick="()=>ManejadorOnBorrar(propiedad.Id)"><i class="bi bi-trash-fill"></i>&nbsp; Borrar</button>

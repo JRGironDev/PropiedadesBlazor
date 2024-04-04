@@ -231,6 +231,9 @@
 
     private async Task ManejadorOnEditarPropiedad()
     {
+        //Se obtiene el ID de la categoria, es decir CategoriaID del DropDown
+        propiedadDTO.CategoriaId = categoriaSeleccionada.Id;
+
         //Si entra aquí se actualiza la propiedad con imagénes
         var resultadoActualizarPropiedad = await PropiedadRepositorio.ActualizarPropiedad(propiedadDTO.Id, propiedadDTO);
         if (propiedadDTO.UrlImagenes != null && propiedadDTO.UrlImagenes.Any() || NombresImagenesBorrada != null && NombresImagenesBorrada.Any())
