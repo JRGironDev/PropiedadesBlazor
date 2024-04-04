@@ -2,6 +2,7 @@
 @using Modelos.DTO
 @using Repositorio.IRepositorio
 @inject IPropiedadRepositorio PropiedadRepositorio
+@inject IJSRuntime JsRuntime
 
 <h1 class="text-center">Propiedades</h1>
 
@@ -66,12 +67,19 @@
     </div>
 </div>
 
+<ConfirmacionBorrado></ConfirmacionBorrado>
+
 @code {
     private IEnumerable<PropiedadDTO> propiedadDTO { get; set; } = new List<PropiedadDTO>();
 
     protected override async Task OnInitializedAsync()
     {
         propiedadDTO = await PropiedadRepositorio.GetAllPropiedades();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeVoidAsync("MostrarModalConfirmacionBorrado");
     }
 
     private async Task ManejadorOnBorrar(int propiedadId)
