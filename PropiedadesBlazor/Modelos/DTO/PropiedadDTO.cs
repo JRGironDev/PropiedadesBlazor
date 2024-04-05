@@ -39,6 +39,8 @@ namespace PropiedadesBlazor.Modelos.DTO
         [Required]
         public bool Activo { get; set; }
 
+        public DateTime FechaActualizacion { get; set; }
+
         //Relación con modelo/tabla categoria
         public int CategoriaId { get; set; }
 
