@@ -136,12 +136,14 @@
                         </div>
                         <div class="col-6">
                             <InputSelect @bind-Value="categoriaSeleccionada.Id" class="form-control">
-                                <option value="">--Selecciona una categoría</option>
+                                @*  <option value="">--Selecciona una categoría--</option>*@
                                 @foreach (var categoria in DropDownCategoriaDTO)
-                                    {
-                                        <option value="@categoria.Id">@categoria.NombreCategoria.</option>
-                                    }
+                                {
+                                    <option selected value="@categoria.Id">@categoria.NombreCategoria</option>
+                                }
+
                             </InputSelect>
+
                         </div>
                     </div>
                 </div>

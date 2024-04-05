@@ -48,6 +48,7 @@
                             <td>@propiedad.Descripcion</td>
                             <td>@propiedad.Area</td>
                             <td>@propiedad.Habitaciones</td>
+                            <td>@propiedad.Banios</td>
                             <td>@propiedad.Parqueadero</td>
                             <td>@propiedad.Precio</td>
                             <td>@propiedad.Activo</td>
@@ -62,7 +63,7 @@
                 else
                 {
                     <tr>
-                        <td colspan="11">No hay registros</td>
+                        <td colspan="10">No hay registros</td>
                     </tr>
                 }
             </tbody>
@@ -86,7 +87,6 @@
     {
         BorrarIdPropiedad = propiedadId;
         await JsRuntime.InvokeVoidAsync("MostrarModalConfirmacionBorrado");
-
     }
 
     public async Task Click_Confirmar_Borrado(bool confirmado)
